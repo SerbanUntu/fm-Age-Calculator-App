@@ -59,5 +59,8 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-style: normal;
+}
+
+html {
+  font-size: 32px;
 }
