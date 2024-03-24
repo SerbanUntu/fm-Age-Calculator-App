@@ -70,56 +70,55 @@ function calculate() {
 
 <template>
   <div id="app-container"
-    class="text-base font-normal font-poppins bg-[--off-white] w-screen h-screen flex items-center justify-center">
-    <div class="bg-white p-10 rounded-xl rounded-br-[25%] flex flex-col gap-1 max-w-[900px] w-[75%]">
-      <div class="flex flex-row gap-5">
-        <div class="flex flex-col">
+    class="text-base font-normal font-poppins bg-[--off-white] w-screen h-screen flex items-center justify-center whitespace-nowrap overflow-x-hidden">
+    <div class="bg-white p-4 lg:p-6 rounded-xl rounded-br-[25%] flex flex-col gap-6 lg:gap-1 lg:w-[900px] w-fit m-1">
+      <div class="flex flex-row gap-2 lg:gap-4">
+        <div class="w-16 lg:w-20 flex flex-col shrink-0">
           <label class="text-[0.5rem] font-bold tracking-[0.15rem]" 
           :class="{'text-[--light-red]': v$.day.$error, 'text-[--smokey-grey]': !v$.day.$error}">DAY</label>
           <input
-            class="w-20 py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
+            class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="DD" maxlength="2" v-model="formData.day"
             :class="{'border-[--light-red]': v$.day.$error}" />
           <p class="text-[14px] italic text-[--light-red]" v-if="v$.day.$error">{{ v$.day.$errors[0].$message }}</p>
         </div>
-        <div class="flex flex-col">
+        <div class="w-16 lg:w-20 flex flex-col shrink-0">
           <label class="text-[0.5rem] font-bold tracking-[0.15rem]"
           :class="{'text-[--light-red]': v$.month.$error, 'text-[--smokey-grey]': !v$.month.$error}">MONTH</label>
           <input
-            class="w-20 py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
+            class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="MM" maxlength="2" v-model="formData.month"
             :class="{'border-[--light-red]': v$.month.$error}" />
           <p class="text-[14px] italic text-[--light-red]" v-if="v$.month.$error">{{ v$.month.$errors[0].$message }}</p>
         </div>
-        <div class="flex flex-col">
+        <div class="w-16 lg:w-20 flex flex-col shrink-0">
           <label class="text-[0.5rem] font-bold tracking-[0.15rem]"
           :class="{'text-[--light-red]': v$.year.$error, 'text-[--smokey-grey]': !v$.year.$error}">YEAR</label>
           <input
-            class="w-20 py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
+            class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="YYYY" maxlength="4" v-model="formData.year"
             :class="{'border-[--light-red]': v$.year.$error}" />
           <p class="text-[14px] italic text-[--light-red]" v-if="v$.year.$error">{{ v$.year.$errors[0].$message }}</p>
         </div>
       </div>
-      <div class="flex flex-row relative items-center">
-        <div class="h-[1px] w-full bg-[--light-grey]" />
-        <button :class="{ 'p-3 bg-[--off-black] rounded-full w-fit ml-auto': true, 'bg-[--purple]': years !== null }"
-          @click="() => {
+      <div class="flex flex-row relative items-center justify-center lg:justify-end">
+        <div class="h-[1px] w-full bg-[--light-grey] absolute" />
+        <button :class="{ 'p-3 bg-[--off-black] rounded-full w-fit z-10': true, 'bg-[--purple]': years !== null }"
+          @click="() => { 
               v$.$validate();
               if(!v$.$invalid) {
                 calculate();
                 v$.$reset();
               }
             }">
-          <img src="/assets/images/icon-arrow.svg" />
+          <img class="w-4 h-4 lg:w-6 lg:h-6" src="/assets/images/icon-arrow.svg" />
         </button>
       </div>
-      <div class="font-extrabold italic text-5xl"><span class="text-[--purple]">{{ years === null ? '--' : years
-          }}</span> years</div>
-      <div class="font-extrabold italic text-5xl"><span class="text-[--purple]">{{ months === null ? '--' : months
-          }}</span> months</div>
-      <div class="font-extrabold italic text-5xl"><span class="text-[--purple]">{{ days === null ? '--' : days }}</span>
-        days</div>
+      <div class="font-extrabold italic mb-6 text-4xl lg:text-5xl">
+        <p><span class="text-[--purple]">{{ years === null ? '--' : years }}</span> years</p>
+        <p><span class="text-[--purple]">{{ months === null ? '--' : months }}</span> months</p>
+        <p><span class="text-[--purple]">{{ days === null ? '--' : days }}</span> days</p>
+      </div>
     </div>
   </div>
 </template>
