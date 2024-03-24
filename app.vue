@@ -18,23 +18,23 @@ const validDate = () => {
 const rules = computed(() => {
   return {
     day: {
-      required: helpers.withMessage('This field is required', required),
+      required:  helpers.withMessage('This field is required', required),
       minLength: helpers.withMessage('Please add leading 0s', minLength(2)),
-      minValue: helpers.withMessage('Must be a valid day', minValue('01')),
-      maxValue: helpers.withMessage('Must be a valid day', maxValue('31')),
+      minValue:  helpers.withMessage('Must be a valid day', minValue('01')),
+      maxValue:  helpers.withMessage('Must be a valid day', maxValue('31')),
       validDate: helpers.withMessage('Must be a valid date', validDate)
     },
     month: {
-      required: helpers.withMessage('This field is required', required),
+      required:  helpers.withMessage('This field is required', required),
       minLength: helpers.withMessage('Please add leading 0s', minLength(2)),
-      minValue: helpers.withMessage('Must be a valid month', minValue('01')),
-      maxValue: helpers.withMessage('Must be a valid month', maxValue('12')),
+      minValue:  helpers.withMessage('Must be a valid month', minValue('01')),
+      maxValue:  helpers.withMessage('Must be a valid month', maxValue('12')),
       validDate
     },
     year: {
-      required: helpers.withMessage('This field is required', required),
+      required:  helpers.withMessage('This field is required', required),
       minLength: helpers.withMessage('Must be a valid year', minLength(4)),
-      maxValue: helpers.withMessage('Must be in the past', maxValue(new Date().getFullYear().toString())),
+      maxValue:  helpers.withMessage('Must be in the past', maxValue(new Date().getFullYear().toString())),
       validDate
     },
   };
@@ -69,40 +69,40 @@ function calculate() {
 </script>
 
 <template>
-  <div id="app-container"
+  <main id="app-container"
     class="text-base font-normal font-poppins bg-[--off-white] w-screen h-screen flex items-center justify-center whitespace-nowrap overflow-x-hidden">
-    <div class="bg-white p-4 lg:p-6 rounded-xl rounded-br-[25%] flex flex-col gap-6 lg:gap-1 lg:w-[900px] w-fit m-1">
-      <div class="flex flex-row gap-2 lg:gap-4">
-        <div class="w-16 lg:w-20 flex flex-col shrink-0">
-          <label class="text-[0.5rem] font-bold tracking-[0.15rem]" 
+    <article class="bg-white p-4 lg:p-6 rounded-xl rounded-br-[25%] flex flex-col gap-6 lg:gap-1 lg:w-[900px] w-fit m-1">
+      <form class="flex flex-row gap-2 lg:gap-4">
+        <section class="w-16 lg:w-20 flex flex-col shrink-0">
+          <label for="day-input" class="text-[0.5rem] font-bold tracking-[0.15rem]" 
           :class="{'text-[--light-red]': v$.day.$error, 'text-[--smokey-grey]': !v$.day.$error}">DAY</label>
-          <input
+          <input id="day-input"
             class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="DD" maxlength="2" v-model="formData.day"
             :class="{'border-[--light-red]': v$.day.$error}" />
-          <p class="text-[14px] italic text-[--light-red]" v-if="v$.day.$error">{{ v$.day.$errors[0].$message }}</p>
-        </div>
-        <div class="w-16 lg:w-20 flex flex-col shrink-0">
-          <label class="text-[0.5rem] font-bold tracking-[0.15rem]"
+          <p class="text-[14px] italic text-[--light-red] max-w-24 text-wrap leading-normal lg:leading-[1.5rem] lg:max-w-40" v-if="v$.day.$error">{{ v$.day.$errors[0].$message }}</p>
+        </section>
+        <section class="w-16 lg:w-20 flex flex-col shrink-0">
+          <label for="month-input" class="text-[0.5rem] font-bold tracking-[0.15rem]"
           :class="{'text-[--light-red]': v$.month.$error, 'text-[--smokey-grey]': !v$.month.$error}">MONTH</label>
-          <input
+          <input id="month-input"
             class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="MM" maxlength="2" v-model="formData.month"
             :class="{'border-[--light-red]': v$.month.$error}" />
-          <p class="text-[14px] italic text-[--light-red]" v-if="v$.month.$error">{{ v$.month.$errors[0].$message }}</p>
-        </div>
-        <div class="w-16 lg:w-20 flex flex-col shrink-0">
-          <label class="text-[0.5rem] font-bold tracking-[0.15rem]"
+          <p class="text-[14px] italic text-[--light-red] max-w-24 text-wrap leading-normal lg:leading-[1.5rem] lg:max-w-40" v-if="v$.month.$error">{{ v$.month.$errors[0].$message }}</p>
+        </section>
+        <section class="w-16 lg:w-20 flex flex-col shrink-0">
+          <label for="year-input" class="text-[0.5rem] font-bold tracking-[0.15rem]"
           :class="{'text-[--light-red]': v$.year.$error, 'text-[--smokey-grey]': !v$.year.$error}">YEAR</label>
-          <input
+          <input id="year-input"
             class="w-full py-1 px-2.5 border border-[--light-grey] rounded-[5px] text-[--off-black] font-bold focus:border-[--purple] focus:outline-none"
             placeholder="YYYY" maxlength="4" v-model="formData.year"
             :class="{'border-[--light-red]': v$.year.$error}" />
-          <p class="text-[14px] italic text-[--light-red]" v-if="v$.year.$error">{{ v$.year.$errors[0].$message }}</p>
-        </div>
-      </div>
-      <div class="flex flex-row relative items-center justify-center lg:justify-end">
-        <div class="h-[1px] w-full bg-[--light-grey] absolute" />
+          <p class="text-[14px] italic text-[--light-red] max-w-24 text-wrap leading-normal lg:leading-[1.5rem] lg:max-w-40" v-if="v$.year.$error">{{ v$.year.$errors[0].$message }}</p>
+        </section>
+      </form>
+      <section class="flex flex-row relative items-center justify-center lg:justify-end">
+        <figure class="h-[1px] w-full bg-[--light-grey] absolute" />
         <button :class="{ 'p-3 bg-[--off-black] rounded-full w-fit z-10': true, 'bg-[--purple]': years !== null }"
           @click="() => { 
               v$.$validate();
@@ -113,12 +113,12 @@ function calculate() {
             }">
           <img class="w-4 h-4 lg:w-6 lg:h-6" src="/assets/images/icon-arrow.svg" />
         </button>
-      </div>
-      <div class="font-extrabold italic mb-6 text-4xl lg:text-5xl">
-        <p><span class="text-[--purple]">{{ years === null ? '--' : years }}</span> years</p>
-        <p><span class="text-[--purple]">{{ months === null ? '--' : months }}</span> months</p>
-        <p><span class="text-[--purple]">{{ days === null ? '--' : days }}</span> days</p>
-      </div>
-    </div>
-  </div>
+      </section>
+      <section class="font-extrabold italic mb-6 text-4xl lg:text-5xl">
+        <p><em class="text-[--purple]">{{ years === null ? '--' : years }}</em> years</p>
+        <p><em class="text-[--purple]">{{ months === null ? '--' : months }}</em> months</p>
+        <p><em class="text-[--purple]">{{ days === null ? '--' : days }}</em> days</p>
+      </section>
+    </article>
+  </main>
 </template>
