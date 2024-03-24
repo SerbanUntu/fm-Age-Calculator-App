@@ -46,25 +46,54 @@ const years = ref(null)
 const months = ref(null)
 const days = ref(null)
 
+let last = Date.now()
+
 function calculate() {
+  last = Date.now()
   let now = new Date()
   let then = new Date(`${formData.year}-${formData.month}-${formData.day}`)
-  years.value = now.getUTCFullYear() - then.getUTCFullYear()
-  months.value = now.getMonth() - then.getMonth()
+  let yearsTemp = now.getUTCFullYear() - then.getUTCFullYear() 
+  let monthsTemp = now.getMonth() - then.getMonth()
   if (then.getDate() > now.getDate()) {
-    months.value -= 1
+    monthsTemp -= 1
   }
-  if (months.value < 0) {
-    months.value += 12
-    years.value -= 1
+  if (monthsTemp < 0) {
+    monthsTemp += 12
+    yearsTemp -= 1
   }
-  days.value = 0
+  let daysTemp = 0
   while (then.getDate() > now.getDate() && then.getDate() !== 1) {
     then.setDate(then.getDate() + 1)
-    days.value += 1
+    daysTemp += 1
     console.log(then.getDate())
   }
-  days.value += parseInt(now.getDate() - then.getDate())
+  daysTemp += parseInt(now.getDate() - then.getDate())
+  years.value = 0
+  months.value = 0
+  days.value = 0
+  let yearInterval = setInterval(() => {
+    if(years.value < yearsTemp) {
+      years.value += 1
+    }
+  }, 1000 / yearsTemp)
+  let monthInterval = setInterval(() => {
+    if(months.value < monthsTemp) {
+      months.value += 1
+    }
+  }, 1000 / monthsTemp)
+  let dayInterval = setInterval(() => {
+    if(days.value < daysTemp) {
+      days.value += 1
+    }
+  }, 1000 / daysTemp)
+  setTimeout(() => {
+    clearInterval(yearInterval)
+    clearInterval(monthInterval)
+    clearInterval(dayInterval)
+    years.value = yearsTemp
+    months.value = monthsTemp
+    days.value = daysTemp
+  }, 1500)
 }
 </script>
 
@@ -106,7 +135,7 @@ function calculate() {
         <button :class="{ 'p-3 bg-[--off-black] rounded-full w-fit z-10': true, 'bg-[--purple]': years !== null }"
           @click="() => { 
               v$.$validate();
-              if(!v$.$invalid) {
+              if(!v$.$invalid && Date.now() - last > 1500) {
                 calculate();
                 v$.$reset();
               }
@@ -115,9 +144,9 @@ function calculate() {
         </button>
       </section>
       <section class="font-extrabold italic mb-6 text-4xl lg:text-5xl">
-        <p><em class="text-[--purple]">{{ years === null ? '--' : years }}</em> years</p>
-        <p><em class="text-[--purple]">{{ months === null ? '--' : months }}</em> months</p>
-        <p><em class="text-[--purple]">{{ days === null ? '--' : days }}</em> days</p>
+        <p><em class="text-[--purple]">{{ years === null ? '--' : years }}</em> year{{ years === 1 ? '' : 's' }}</p>
+        <p><em class="text-[--purple]">{{ months === null ? '--' : months }}</em> month{{ months === 1 ? '' : 's' }}</p>
+        <p><em class="text-[--purple]">{{ days === null ? '--' : days }}</em> day{{ days === 1 ? '' : 's' }}</p>
       </section>
     </article>
   </main>
