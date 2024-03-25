@@ -38,7 +38,7 @@ Users are able to:
 
 ### Links
 
-- [Solution](https://www.frontendmentor.io/challenges/age-calculator-app-dF9DFFpj-Q)
+- [Solution](https://www.frontendmentor.io/solutions/animated-age-calculator-app-with-nuxt-and-tailwind-DdlEcPJlBE)
 - [Live Site](https://fm-age-calculator-app-blond.vercel.app/)
 
 ## My process
