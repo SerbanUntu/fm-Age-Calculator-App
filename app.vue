@@ -140,7 +140,7 @@ function calculate() {
                 v$.$reset();
               }
             }">
-          <img class="w-4 h-4 lg:w-6 lg:h-6" src="/assets/images/icon-arrow.svg" />
+          <img class="w-4 h-4 lg:w-6 lg:h-6" src="/assets/images/icon-arrow.svg" alt="Icon of an arrow pointing downward" />
         </button>
       </section>
       <section class="font-extrabold italic mb-6 text-4xl lg:text-5xl">
